@@ -157,6 +157,7 @@ def list(store_id=None):
                 db.session.commit()
             if request.form.get(f.name + "_bought") == '1':
                 f.status = 1
+                db.session.commit()
         return redirect(url_for('list', store_id=store_id))
     locations = Store.query.order_by("name").all()
     return render_template('list.html', food=food, locations=locations)
@@ -172,6 +173,7 @@ def essentials():
                 db.session.commit()
         return redirect(url_for('index'))
     return render_template('essentials.html', food=food)
+
 
 if __name__ == '__main__':
     # Create admin
