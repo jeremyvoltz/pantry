@@ -4,12 +4,12 @@ from sqlalchemy.sql import func
 
 from flask.ext import wtf
 from flask.ext.superadmin import Admin, model
-from flask.ext.heroku import Heroku
+# from flask.ext.heroku import Heroku
 
 
 # Create application
 app = Flask(__name__)
-heroku = Heroku(app)
+# heroku = Heroku(app)
 # Create dummy secrey key so we can use sessions
 # app.config['SECRET_KEY'] = '123456790'
 
