@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<form action="" method="post">
+       <table> 
+                <tr>
+          <th>Food</th>
+          <th>Essential</th>
+          <th>Pantry Status</th>
+<!--           <th>Delete Food</th>
+ -->        </tr>
+        {% for f in food %}
+        <tr>
+            <td>{{f.name|upper}}</td>
+            <td><input type="checkbox" name="{{f.name+'_essential'}}" value=1 {% if f.essential %} checked {% endif %} ></td>
+            <td>
+              <select name='{{f.name+"_status"}}'>
+                  <option value="0" {% if f.status == 0 %} selected {% endif %} >buy</option>
+                  <option value="1" {% if f.status == 1 %} selected {% endif %}>full</option>
+                  <option value="2" {% if f.status == 2 %} selected {% endif %}>if on sale</option>
+            </select>
+          </td>
+            <td><input type="checkbox" name='{{f.name+"_delete"}}' value=1 >delete?</td>
+            
+           {% endfor %}
+        </tr>
+        <tr>
+            <td><em>or add new foods...</em> </td>
+            <td></td>
+        </tr>
+           {% for i in range(5) %}
+        <tr>
+           <td><input type="text" name='{{i}}'> </td>
+           <td><input type="checkbox" name='{{ "checkbox_" + i|string }}' value=1></td>
+           <td>
+              <select name='{{"status_" + i|string}}'>
+                  <option value="0">buy</option>
+                  <option value="1">full</option>
+                  <option value="2">if on sale</option>
+            </select>
+        </tr>
+           {% endfor %}
+       </table>
+    <input type="submit" value='update'>
+    </form>
+
+{% endblock %}

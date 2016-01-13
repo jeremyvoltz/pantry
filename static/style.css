@@ -1,0 +1,13 @@
+body {
+
+}
+td:nth-child(n+2) {
+    text-align: center;
+}
+th {
+    text-align: left;
+    padding: 10px;
+}
+.button {
+    display: block;
+}

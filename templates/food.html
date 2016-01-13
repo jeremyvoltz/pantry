@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <h1>What to buy?</h1>
+    
+    <!-- <form action="" method="post">
+        {% for f in food %}
+        <input type="checkbox" name={{f}} value=1 {% if f.status == 0 %} checked {% endif %} >{{f.name}}<br>
+    {% endfor %}
+    <p>or add new foods... </p>
+    {% for i in range(20) %}
+    <input type="text" name={{i}}> <br>
+    {% endfor %}
+    <input type="submit" value='submit'>
+    </form> -->
+
+    <form action="" method="post">
+       <table> 
+        {% for f in food %}
+        <tr>
+            <td><input type="checkbox" name="{{f.name}}" value=1 {% if f.status == 0 %} checked {% endif %} >{{f.name}}</td>
+            <td><input type="checkbox" name="{{f.name}}" value=1 {% if f.essential %} checked {% endif %} >essential</td>
+            
+           {% endfor %}
+        </tr>
+        <tr>
+            <td>or add new foods... </td>
+            <td></td>
+        </tr>
+           {% for i in range(5) %}
+        <tr>
+           <td><input type="text" name='{{i}}'> </td>
+           <td><input type="checkbox" name='{{ "checkbox_" + i|string }}' value=1>essential</td>
+        </tr>
+           {% endfor %}
+       </table>
+    <input type="submit" value='submit'>
+    </form>
+    
+{% endblock %}
