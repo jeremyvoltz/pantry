@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+  <table>
+  {% for store in locations %}
+  <th><a href="{{url_for('list', store_id = store.id)}}">{{store.name}}</a></th>
+  {% endfor %}
+  <th><a href="{{url_for('list')}}">full list</a></th>
+  <th><a href="{{url_for('index')}}">done!</a></th>
+</table>
+  <form action="" method="post">
+    <table>
+      <tr>
+        <th>Food</th>
+        {% for store in locations %}
+          <th value={{store}}>{{store}}</th>
+        {% endfor %}
+      </tr>
+      {% for f in food %}
+        <tr>
+          <td> <input type="checkbox" class="strikethrough" name="{{f.name + '_bought'}}" value=1> 
+           <span>{{f.name|upper}} <em>{% if f.status == 2 %}( buy if on sale... ) {% endif %}</em></span></td>
+          {% for store in locations %}
+            <td>
+              <input type='checkbox' name="{{f.name + '_' + store.name}}" value=1 
+              {% if store in f.locations %} checked {% endif %} >
+            </td>
+          {% endfor %}
+          
+        </tr>
+      {% endfor %}
+    </table>
+    <input type="submit" value='update'>
+  </form>
+{% endblock %}

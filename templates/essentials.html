@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <h1>Need any of these?</h1>
+    <h2>check them before you go...</h2>
+
+    <form action="" method="post">
+       <table> 
+        {% for f in food %}
+        <tr>
+            <td><input type="checkbox" name="{{f.name}}" value=1 {% if f.status == 0 %} checked {% endif %} >{{f.name}}</td>
+            <!-- <td><input type="checkbox" name="{{f.name}}" value=1 {% if f.essential %} checked {% endif %} >essential</td> -->
+            
+           {% endfor %}
+        </tr>
+        
+       </table>
+    <input type="submit" value='add to the list'>
+    </form>
+    
+{% endblock %}

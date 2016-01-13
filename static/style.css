@@ -11,3 +11,11 @@ th {
 .button {
     display: block;
 }
+.strikethrough:checked + span{
+  text-decoration:line-through;
+  color: gray;
+
+}
+.center {
+    text-align: center;
+}

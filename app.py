@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask.ext.sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func
 
 from flask.ext import wtf
 from flask.ext.superadmin import Admin, model
@@ -66,7 +67,6 @@ class Store(db.Model):
 def index():
     return render_template('home.html')
 
-
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     food = Food.query.order_by(Food.name)
@@ -129,11 +129,49 @@ def stores():
                 # elif store in food.locations:
                     # food.locations.remove(store)
                 db.session.commit()
-        
         return redirect(url_for('index'))
     locations = Store.query.order_by("name").all()
     return render_template('stores.html', food=food, locations=locations)
 
+
+@app.route('/list/', methods=['GET', 'POST'])
+@app.route('/list/<int:store_id>', methods=['GET', 'POST'])
+def list(store_id=None):
+    if store_id:
+        food = Food.query\
+        .filter(Food.locations.any(id=store_id))\
+        .filter(Food.status != 1)\
+        .order_by(Food.name)
+    else:
+        food = Food.query.filter(Food.status != 1).order_by(Food.name)
+    locations = Store.query.order_by("name").all()
+    if request.method == 'POST':
+        for f in food:
+            f.locations = []
+            db.session.commit()
+            for store in locations:
+                if request.form.get(f.name + "_" + store.name) == '1':
+                    f.locations.append(store)
+                # elif store in food.locations:
+                    # food.locations.remove(store)
+                db.session.commit()
+            if request.form.get(f.name + "_bought") == '1':
+                f.status = 1
+        return redirect(url_for('list', store_id=store_id))
+    locations = Store.query.order_by("name").all()
+    return render_template('list.html', food=food, locations=locations)
+
+
+@app.route('/essentials', methods=['GET', 'POST'])
+def essentials():
+    food = Food.query.filter_by(essential=True).order_by(Food.name).all()
+    if request.method == 'POST':
+        for f in food:
+            if request.form.get(f.name) == '1':
+                f.status = 0
+                db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('essentials.html', food=food)
 
 if __name__ == '__main__':
     # Create admin
