@@ -4,16 +4,18 @@ from sqlalchemy.sql import func
 
 from flask.ext import wtf
 from flask.ext.superadmin import Admin, model
+from flask.ext.heroku import Heroku
+
 
 # Create application
 app = Flask(__name__)
-
+heroku = Heroku(app)
 # Create dummy secrey key so we can use sessions
 app.config['SECRET_KEY'] = '123456790'
 
-# Create in-memory database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.sqlite'
-app.config['SQLALCHEMY_ECHO'] = True
+# Create in-memory database (local dev only)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.sqlite'
+# app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 
 status_code = [(0, "buy"),
