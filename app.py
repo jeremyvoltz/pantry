@@ -11,7 +11,22 @@ from flask.ext.heroku import Heroku
 app = Flask(__name__)
 heroku = Heroku(app)
 # Create dummy secrey key so we can use sessions
-app.config['SECRET_KEY'] = '123456790'
+# app.config['SECRET_KEY'] = '123456790'
+
+import os
+import psycopg2
+import urlparse
+
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse(os.environ["DATABASE_URL"])
+
+conn = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
 
 # Create in-memory database (local dev only)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.sqlite'
