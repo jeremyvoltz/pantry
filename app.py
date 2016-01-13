@@ -192,6 +192,19 @@ def essentials():
     return render_template('essentials.html', food=food)
 
 
+# Create admin
+    admin = Admin(app, 'Simple Models')
+
+    # Add views
+    admin.register(Food, session=db.session)
+    # admin.register(Status, session=db.session)
+    admin.register(Store, session=db.session)
+    # admin.add_view(sqlamodel.ModelView(Post, session=db.session))
+
+    # Create DB
+    db.create_all()
+
+
 if __name__ == '__main__':
     # Create admin
     admin = Admin(app, 'Simple Models')
