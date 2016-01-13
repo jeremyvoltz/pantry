@@ -4,12 +4,12 @@ from sqlalchemy.sql import func
 
 from flask.ext import wtf
 from flask.ext.superadmin import Admin, model
-# from flask.ext.heroku import Heroku
+from flask.ext.heroku import Heroku
 
 
 # Create application
 app = Flask(__name__)
-# heroku = Heroku(app)
+heroku = Heroku(app)
 # Create dummy secrey key so we can use sessions
 # app.config['SECRET_KEY'] = '123456790'
 
@@ -190,19 +190,6 @@ def essentials():
                 db.session.commit()
         return redirect(url_for('index'))
     return render_template('essentials.html', food=food)
-
-
-# Create admin
-    admin = Admin(app, 'Simple Models')
-
-    # Add views
-    admin.register(Food, session=db.session)
-    # admin.register(Status, session=db.session)
-    admin.register(Store, session=db.session)
-    # admin.add_view(sqlamodel.ModelView(Post, session=db.session))
-
-    # Create DB
-    db.create_all()
 
 
 if __name__ == '__main__':
