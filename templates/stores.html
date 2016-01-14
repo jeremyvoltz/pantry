@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
   <form action="" method="post">
+    <h2>Manage purchasing preferences:</h2>
     <table>
       <tr>
         <th>Food</th>
@@ -21,6 +22,29 @@
         </tr>
       {% endfor %}
     </table>
+
+    <h2>Manage stores:</h2>
+    <table> 
+                <tr>
+          
+        {% for store in locations %}
+        <tr>
+            <td>{{store.name}}</td>
+            <td><input type="checkbox" name='{{store.name+"_delete"}}' value=1 >delete?</td>
+            
+           {% endfor %}
+        </tr>
+        <tr>
+            <td><em>or add new stores...</em> </td>
+            <td></td>
+        </tr>
+           {% for i in range(5) %}
+        <tr>
+           <td><input type="text" name='{{"store_" + i|string}}'> </td>
+           <td></td>
+        </tr>
+           {% endfor %}
+       </table>
     <input type="submit" value='update'>
   </form>
 {% endblock %}

@@ -147,6 +147,16 @@ def stores():
                 # elif store in food.locations:
                     # food.locations.remove(store)
                 db.session.commit()
+        for store in locations:
+            if request.form.get(store.name + "_delete") == '1':
+                db.session.delete(store)
+                db.session.commit()
+        for i in range(5):
+            name = request.form.get("store_" + str(i))
+            if name:
+                store = Store(name=name)
+                db.session.add(store)
+                db.session.commit()
         return redirect(url_for('index'))
     locations = Store.query.order_by("name").all()
     return render_template('stores.html', food=food, locations=locations)
