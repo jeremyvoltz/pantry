@@ -10,6 +10,8 @@ from flask.ext.heroku import Heroku
 # Create application
 app = Flask(__name__)
 heroku = Heroku(app)
+admin = Admin(app, 'Simple Models')
+
 # Create dummy secrey key so we can use sessions
 # app.config['SECRET_KEY'] = '123456790'
 
