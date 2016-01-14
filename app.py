@@ -3,15 +3,13 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
 
 from flask.ext import wtf
-from flask.ext.superadmin import Admin, model
+# from flask.ext.superadmin import Admin, model
 from flask.ext.heroku import Heroku
 
 
 # Create application
 app = Flask(__name__)
 heroku = Heroku(app)
-
-admin = Admin(app, 'Simple Models')
 
 # Create dummy secrey key so we can use sessions
 # app.config['SECRET_KEY'] = '123456790'
@@ -86,6 +84,7 @@ class Store(db.Model):
 @app.route('/')
 def index():
     return render_template('home.html')
+
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
