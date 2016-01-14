@@ -31,7 +31,7 @@ heroku = Heroku(app)
 # )
 
 # Create in-memory database (local dev only)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/dev'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/dev'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.sqlite'
 # app.config['SQLALCHEMY_ECHO'] = True
 
