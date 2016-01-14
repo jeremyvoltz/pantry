@@ -2,14 +2,16 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
 
-from flask.ext import wtf
-from flask.ext.superadmin import Admin, model
-# from flask.ext.heroku import Heroku
+
+# from flask.ext.superadmin import Admin, model
+from flask.ext.heroku import Heroku
 
 
 # Create application
 app = Flask(__name__)
-# heroku = Heroku(app)
+
+heroku = Heroku(app)
+
 # Create dummy secrey key so we can use sessions
 # app.config['SECRET_KEY'] = '123456790'
 
@@ -32,6 +34,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/dev'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.sqlite'
 # app.config['SQLALCHEMY_ECHO'] = True
+
 db = SQLAlchemy(app)
 
 status_code = [(0, "buy"),
@@ -84,6 +87,7 @@ class Store(db.Model):
 @app.route('/')
 def index():
     return render_template('home.html')
+
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
