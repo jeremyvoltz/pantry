@@ -11,15 +11,7 @@ from flask.ext.heroku import Heroku
 app = Flask(__name__)
 heroku = Heroku(app)
 
-# Create admin
 admin = Admin(app, 'Simple Models')
-
-# Add views
-admin.register(Food, session=db.session)
-# admin.register(Status, session=db.session)
-admin.register(Store, session=db.session)
-# admin.add_view(sqlamodel.ModelView(Post, session=db.session))
-
 
 # Create dummy secrey key so we can use sessions
 # app.config['SECRET_KEY'] = '123456790'
