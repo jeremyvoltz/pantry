@@ -4,31 +4,32 @@ from sqlalchemy.sql import func
 
 from flask.ext import wtf
 from flask.ext.superadmin import Admin, model
-from flask.ext.heroku import Heroku
+# from flask.ext.heroku import Heroku
 
 
 # Create application
 app = Flask(__name__)
-heroku = Heroku(app)
+# heroku = Heroku(app)
 # Create dummy secrey key so we can use sessions
 # app.config['SECRET_KEY'] = '123456790'
 
-import os
-import psycopg2
-import urlparse
+# import os
+# import psycopg2
+# import urlparse
 
-urlparse.uses_netloc.append("postgres")
-url = urlparse.urlparse(os.environ["DATABASE_URL"])
+# urlparse.uses_netloc.append("postgres")
+# url = urlparse.urlparse(os.environ["DATABASE_URL"])
 
-conn = psycopg2.connect(
-    database=url.path[1:],
-    user=url.username,
-    password=url.password,
-    host=url.hostname,
-    port=url.port
-)
+# conn = psycopg2.connect(
+#     database=url.path[1:],
+#     user=url.username,
+#     password=url.password,
+#     host=url.hostname,
+#     port=url.port
+# )
 
 # Create in-memory database (local dev only)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/dev'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.sqlite'
 # app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
@@ -122,7 +123,7 @@ def pantry():
             name = request.form.get(str(i))
             if name:
                 essential = bool(request.form.get("checkbox_" + str(i)))
-                status = bool(request.form.get("status_" + str(i)))
+                status = int(request.form.get("status_" + str(i)))
                 food = Food(name=name, essential=essential, status=status)
                 db.session.add(food)
                 db.session.commit()
