@@ -97,6 +97,9 @@ def add():
             if request.form.get(f.name) == '1':
                 f.status = 0
                 db.session.commit()
+            elif request.form.get(f.name) == '0':
+                f.status = 2
+                db.session.commit()
         for i in range(5):
             name = request.form.get(str(i))
             if name:
